@@ -1,0 +1,28 @@
+version: "3"
+services:
+  redis:
+    image: redis
+    restart: always
+    ports:
+      - "6380:6379"
+  db:
+    image: postgres
+    restart: always
+    environment:
+      POSTGRES_PASSWORD: postgres
+      POSTGRES_USER: postgres
+      POSTGRES_DB: Users
+    ports:
+      - "5433:5432"
+    
+  server:
+    command: sh -c "cd /app && npx sequelize-cli db:migrate && node index.js"
+    build: .
+    ports:
+      - "3000:3001"
+    environment:
+      DB_HOST: db
+      DB_USER: postgres
+      DB_PASSWORD: postgres
+      DB_NAME: Users
+      DB_PORT: 5432
