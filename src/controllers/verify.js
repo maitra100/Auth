@@ -2,12 +2,10 @@ const tokenVerifyService = require('../services/verify');
 
 const tokenVerify = async (req, res) => {
   try {
-    const verificaton = await tokenVerifyService(req.body.token, req.body.username);
-    if (verificaton instanceof Error) throw new Error(verificaton.message);
-    res.send(verificaton);
+    const verificaton = await tokenVerifyService.tokenVerifyService(req.body.token, req.body.username);
+    res.status(200).send('token verified');
   } catch (e) {
-    res.end(e.message);
-    return new Error(e.message);
+    res.status(400).send(e.message);
   }
 };
 

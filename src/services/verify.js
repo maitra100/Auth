@@ -11,4 +11,4 @@ const tokenVerifyService = async (token, username) => {
   throw new Error('Invalid token');
 };
 
-module.exports = tokenVerifyService;
+module.exports = { tokenVerifyService };
